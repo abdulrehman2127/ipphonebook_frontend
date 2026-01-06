@@ -14,18 +14,31 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     
+    # Step 1.5: Debug secrets (check if they exist)
+    - name: Check secrets
+      run: |
+        if [ -z "${{ secrets.FRONTEND_USERNAME }}" ]; then
+          echo "❌ FRONTEND_USERNAME is empty!"
+          exit 1
+        fi
+        if [ -z "${{ secrets.FRONTEND_PASSWORD }}" ]; then
+          echo "❌ FRONTEND_PASSWORD is empty!"
+          exit 1
+        fi
+        echo "✅ Secrets are set"
+    
     # Step 2: Login to Docker Hub
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        username: ${{ secrets.FRONTEND_USERNAME }}
+        password: ${{ secrets.FRONTEND_PASSWORD }}
     
     # Step 3: Build and push Docker image
     - name: Build and push Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/phonebook-frontend:latest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/phonebook-frontend:latest
+        docker build -t ${{ secrets.FRONTEND_USERNAME }}/phonebook-frontend:latest .
+        docker push ${{ secrets.FRONTEND_USERNAME }}/phonebook-frontend:latest
     
     # Step 4: Success
     - name: Deployment complete
