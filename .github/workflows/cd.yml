@@ -1,0 +1,32 @@
+name: Frontend CD (Deploy)
+
+# Run only on main branch after code is merged
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # Step 1: Get the code
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    # Step 2: Login to Docker Hub
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    
+    # Step 3: Build and push Docker image
+    - name: Build and push Docker image
+      run: |
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/phonebook-frontend:latest .
+        docker push ${{ secrets.DOCKER_USERNAME }}/phonebook-frontend:latest
+    
+    # Step 4: Success
+    - name: Deployment complete
+      run: echo "✅ Frontend deployed to Docker Hub!"
