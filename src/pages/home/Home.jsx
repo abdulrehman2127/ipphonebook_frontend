@@ -62,7 +62,7 @@ function Home() {
 
         <div className="header">
           <Phone className="logo-icon" size={60} />
-          <h1 className="title">Corporate Phonebook Manager</h1>
+          <h1 className="title">Corporate Phonebook Manager -- CPM</h1>
           <p className="subtitle">Manage your IP phone directory with ease</p>
         </div>
 

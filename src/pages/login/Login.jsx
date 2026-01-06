@@ -79,7 +79,7 @@ function Login() {
           <div className="login-icon">
             <Phone size={40} />
           </div>
-          <h1>IP Phonebook</h1>
+          <h1>IP Phonebook Abdul Rehman</h1>
           <p>{isLogin ? 'Sign in to your account' : 'Create a new account'}</p>
         </div>
 

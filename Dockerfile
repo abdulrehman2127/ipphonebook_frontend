@@ -13,7 +13,7 @@ COPY . .
 RUN npm run build
 
 # Install simple server
-RUN npm install
+RUN npm install -g serve
 
 # Expose port
 EXPOSE 3000
